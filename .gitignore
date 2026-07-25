@@ -1,0 +1,20 @@
+# Node dependencies
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Python environment
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment & IDE
+.env
+.env.local
+.vscode/
+.idea/
+.DS_Store
+*.log
