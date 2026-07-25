@@ -2,10 +2,10 @@ import React from 'react';
 import { Palette, Eye, Download, Image } from 'lucide-react';
 
 interface AssetSpec {
-  asset_id: str;
-  name: str;
-  asset_type: str;
-  svg_data: str;
+  asset_id: string;
+  name: string;
+  asset_type: string;
+  svg_data: string;
 }
 
 interface AssetStudioProps {

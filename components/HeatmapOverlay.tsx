@@ -2,8 +2,8 @@ import React from 'react';
 import { Target, Zap, Clock, Activity } from 'lucide-react';
 
 interface HeatmapOverlayProps {
-  ttfa: float;
-  difficultyScore: float;
+  ttfa: number;
+  difficultyScore: number;
   engagementRating: string;
   fps: number;
 }

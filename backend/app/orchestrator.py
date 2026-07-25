@@ -5,7 +5,7 @@ from backend.app.agents.code_agent import CodeGenerationAgent
 from backend.app.agents.asset_agent import AssetGenerationAgent
 from backend.app.agents.test_agent import GameplayTestingAgent
 from backend.app.agents.optimize_agent import OptimizationAgent
-from backend.app.exporter.ad_packager import AdPackager Engine
+from backend.app.exporter.ad_packager import AdPackagerEngine
 
 class AgentOrchestrator:
     def __init__(self):

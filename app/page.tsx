@@ -73,7 +73,7 @@ export default function Home() {
         },
         {
           asset_id: "hero_king",
-          name="King Character Sprite",
+          name: "King Character Sprite",
           asset_type: "character",
           svg_data: "<svg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='40' fill='#f59e0b'/><polygon points='35,25 50,10 65,25' fill='#ef4444'/></svg>"
         },
