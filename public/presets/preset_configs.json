@@ -1,0 +1,29 @@
+[
+  {
+    "id": "preset_royal_rescue",
+    "name": "Royal Rescue Match-3",
+    "prompt": "Create a 30-second Royal Match style puzzle save-the-king playable ad",
+    "genre": "Match-3",
+    "duration": 30,
+    "target_network": "Meta",
+    "theme": "Royal Rescue"
+  },
+  {
+    "id": "preset_pull_pin",
+    "name": "Dungeon Pin Rescue",
+    "prompt": "Create a 15-second Pull the pin hero puzzle save treasure dodging lava playable ad",
+    "genre": "Pull-the-Pin",
+    "duration": 15,
+    "target_network": "TikTok",
+    "theme": "Dungeon Hero"
+  },
+  {
+    "id": "preset_tile_blast",
+    "name": "Kingdom Defense Tile Blast",
+    "prompt": "Create a 30-second color tile tap blast rebuild castle wall playable ad",
+    "genre": "Tile Blast",
+    "duration": 30,
+    "target_network": "Google Ads",
+    "theme": "Kingdom Defense"
+  }
+]
