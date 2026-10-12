@@ -15,7 +15,7 @@ class GameDesignAgent:
             title = "Hero Rescue Pin Challenge"
             cta_text = "SAVE THE HERO NOW!"
             colors = ["#f59e0b", "#ef4444", "#3b82f6", "#10b981"]
-        elif "blast" in prompt_lower or "tile" in prompt_lower or "tap" in prompt_lower:
+        elif "blast" in prompt_lower:
             mechanic = "Tile Blast"
             primary_goal = "Tap matching blocks to rebuild castle wall before time runs out"
             failure_hook = "Castle wall crumbles if tiles aren't blasted in 5 seconds!"
@@ -25,7 +25,7 @@ class GameDesignAgent:
         else:
             mechanic = "Tap Puzzle"
             primary_goal = "Tap three different gems before the timer ends"
-            failure_hook = "Water rises in 10 seconds if match-3 fails!"
+            failure_hook = "The timer expires before three different gems are tapped"
             title = "Castle Rescue Puzzle"
             cta_text = "PLAY TO SAVE THE KING!"
             colors = ["#e11d48", "#2563eb", "#059669", "#d97706"]

@@ -24,3 +24,4 @@ __pycache__/
 .test-tmp/
 pytest-cache-files-*/
 .test-tmp*/
+.models/

@@ -1,0 +1,8 @@
+-r requirements.txt
+torch>=2.6
+transformers>=4.45,<5
+diffusers>=0.30,<0.37
+accelerate>=1.0
+pillow>=10
+playwright>=1.50
+hf_xet>=1.4

@@ -1,12 +1,16 @@
 from pydantic import BaseModel, Field
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Literal
 
 class GeneratePromptRequest(BaseModel):
     prompt: str = Field(..., min_length=3, max_length=2000)
     genre: str = Field("Match-3", example="Match-3")
     duration: int = Field(30, ge=5, le=60)
-    target_network: str = Field("Meta", example="Meta")
+    target_network: Literal['Meta', 'TikTok', 'Google', 'Unity'] = 'Meta'
     theme: Optional[str] = Field("Royal Rescue", example="Royal Rescue")
+    generation_mode: Literal['local_template', 'local_ai'] = 'local_template'
+    generate_images: bool = False
+    evaluate_browser: bool = False
+    seed: int = Field(42, ge=0, le=2147483647)
 
 class GameConcept(BaseModel):
     title: str
@@ -22,6 +26,7 @@ class AssetSpec(BaseModel):
     name: str
     asset_type: str  # background, character, object, hand_tutorial, cta_banner
     svg_data: str
+    image_data: Optional[str] = None
 
 class TestResult(BaseModel):
     is_playable: bool
@@ -50,3 +55,6 @@ class PlayableGenerationResponse(BaseModel):
     export_html: str
     generation_mode: str = "local_template"
     generation_duration_ms: float = 0
+    provenance: Dict[str, Any] = Field(default_factory=dict)
+    runtime_evaluation: Optional[Dict[str, Any]] = None
+    parent_project_id: Optional[str] = None

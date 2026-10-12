@@ -1,0 +1,84 @@
+{
+  "project_id": "pf_6f5a77a5",
+  "prompt": "Create a forest rescue tap puzzle. Use a green enchanted forest background with no text. Keep the CTA short.\nReviewer feedback: Change the title to Forest Gems and the CTA to PLAY NOW.",
+  "game_concept": {
+    "title": "Forest Gems Tap Puzzle",
+    "mechanic": "Tap Puzzle",
+    "duration_seconds": 5,
+    "primary_goal": "Tap three different gems before the timer ends",
+    "failure_hook": "The timer expires before three different gems are tapped",
+    "cta_text": "PLAY NOW",
+    "color_palette": [
+      "#e11d48",
+      "#2563eb",
+      "#059669",
+      "#d97706"
+    ]
+  },
+  "test_result": {
+    "is_playable": true,
+    "validation_method": "static_code_checks",
+    "checks": {
+      "scene_class": true,
+      "touch_handler": true,
+      "win_condition": true,
+      "timeout_condition": true,
+      "cta": true
+    },
+    "time_to_first_action_sec": null,
+    "difficulty_score": null,
+    "engagement_rating": "Not measured",
+    "fps_estimate": null,
+    "recommendations": [
+      "Static checks cannot establish runtime playability or ad performance.",
+      "Review tap response, timer, end screen and CTA in the preview."
+    ]
+  },
+  "optimization_report": {
+    "original_hook_delay": null,
+    "optimized_hook_delay": null,
+    "ctr_boost_estimate_percent": null,
+    "applied_enhancements": []
+  },
+  "generation_mode": "local_ai",
+  "generation_duration_ms": 35652.3,
+  "provenance": {
+    "text_provider": "transformers",
+    "image_provider": "diffusers",
+    "seed": 42,
+    "text_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "creative_brief": {
+      "title": "Forest Gems Tap Puzzle",
+      "instruction": "Tap three different gems before the timer ends",
+      "cta": "PLAY NOW",
+      "image_prompt": "A lush green forest, stylized mobile game background, no text"
+    },
+    "instruction_source": "tested_template",
+    "image_model": "stabilityai/sd-turbo",
+    "image_prompt": "A lush green forest, stylized mobile game background, no text",
+    "review_feedback": "Change the title to Forest Gems and the CTA to PLAY NOW."
+  },
+  "runtime_evaluation": {
+    "method": "playwright_chromium",
+    "checks": {
+      "canvas_loaded": true,
+      "generated_background_loaded": true,
+      "tap_scores": true,
+      "repeated_tap_ignored": true,
+      "win": true,
+      "demo_cta": true,
+      "timeout": true,
+      "no_runtime_errors": true,
+      "offline_execution": true
+    },
+    "passed": true,
+    "errors": [],
+    "screenshots": [
+      "backend/data/evaluation/8952816cc5cb-preview.png",
+      "backend/data/evaluation/8952816cc5cb-win.png",
+      "backend/data/evaluation/8952816cc5cb-timeout.png"
+    ],
+    "duration_ms": 8449.5
+  },
+  "parent_project_id": "pf_aca22d44"
+}

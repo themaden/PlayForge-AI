@@ -1,5 +1,6 @@
 from typing import List
 from pathlib import Path
+from html import escape
 from backend.app.schemas import GameConcept, AssetSpec
 
 class AdPackagerEngine:
@@ -19,7 +20,7 @@ class AdPackagerEngine:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>{concept.title} - Playable Ad</title>
+    <title>{escape(concept.title)} - Playable Ad</title>
     <!-- Embedded Phaser 3.80 Engine CDN -->
     <script>{engine}</script>
     <style>

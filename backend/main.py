@@ -47,6 +47,8 @@ def generate_playable(request: GeneratePromptRequest):
         return response
     except NotImplementedError as e:
         raise HTTPException(status_code=422, detail=str(e))
+    except ValueError as e:
+        raise HTTPException(status_code=422, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -73,10 +75,45 @@ def read_project(project_id: str):
 
 @app.post('/api/projects/{project_id}/review')
 def review_project(project_id: str, review: ReviewRequest):
+    project = get_project(project_id)
+    if project and review.decision == 'approved' and project.get('runtime_evaluation') and not project['runtime_evaluation']['passed']:
+        raise HTTPException(status_code=409, detail='Resolve failed browser checks before approving.')
     try:
         return save_review(project_id, review.decision, review.feedback)
     except KeyError:
         raise HTTPException(status_code=404, detail='Project not found')
+
+
+class RevisionRequest(BaseModel):
+    generation_mode: Literal['local_template', 'local_ai'] = 'local_ai'
+    generate_images: bool = False
+    evaluate_browser: bool = False
+
+
+@app.post('/api/projects/{project_id}/revise')
+def revise_project(project_id: str, revision: RevisionRequest):
+    original = get_project(project_id)
+    if original is None:
+        raise HTTPException(status_code=404, detail='Project not found')
+    if original['review_status'] != 'changes_requested':
+        raise HTTPException(status_code=409, detail='Request changes with feedback before creating a revision.')
+    feedback = original['reviews'][-1]['feedback']
+    prompt = (original['prompt'] + '\nReviewer feedback: ' + feedback)
+    if len(prompt) > 2000:
+        raise HTTPException(status_code=422, detail='Brief and feedback exceed the 2000-character limit.')
+    try:
+        request = GeneratePromptRequest(prompt=prompt, duration=original['game_concept']['duration_seconds'],
+            generation_mode=revision.generation_mode, generate_images=revision.generate_images,
+            evaluate_browser=revision.evaluate_browser, seed=original['provenance'].get('seed', 42))
+        result = orchestrator.generate_playable(request)
+        result.parent_project_id = project_id
+        result.provenance['review_feedback'] = feedback
+        save_project(result)
+        return result
+    except ValueError as error:
+        raise HTTPException(status_code=422, detail=str(error))
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=str(error))
 
 @app.get("/api/presets")
 def get_presets():
