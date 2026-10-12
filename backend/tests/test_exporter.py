@@ -12,6 +12,6 @@ def test_exporter_bundle_standalone():
     res = orchestrator.generate_playable(req)
     
     assert res.export_html.startswith("<!DOCTYPE html>")
-    assert "phaser.min.js" in res.export_html
+    assert 'src="https://' not in res.export_html
     assert "PlayableScene" in res.export_html
     assert "FbPlayable" in res.export_html or "Meta" in res.export_html

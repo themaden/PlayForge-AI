@@ -7,6 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.config import settings
 from backend.app.schemas import GeneratePromptRequest, PlayableGenerationResponse
 from backend.app.orchestrator import AgentOrchestrator
+from backend.app.reviews import save_project, get_project, save_review
+from pydantic import BaseModel, Field, model_validator
+from typing import Literal
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -40,9 +43,40 @@ def health():
 def generate_playable(request: GeneratePromptRequest):
     try:
         response = orchestrator.generate_playable(request)
+        save_project(response)
         return response
+    except NotImplementedError as e:
+        raise HTTPException(status_code=422, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+class ReviewRequest(BaseModel):
+    decision: Literal['approved', 'changes_requested']
+    feedback: str = Field('', max_length=2000)
+
+    @model_validator(mode='after')
+    def require_feedback(self):
+        self.feedback = self.feedback.strip()
+        if self.decision == 'changes_requested' and not self.feedback:
+            raise ValueError('Describe the requested changes.')
+        return self
+
+
+@app.get('/api/projects/{project_id}')
+def read_project(project_id: str):
+    result = get_project(project_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail='Project not found')
+    return result
+
+
+@app.post('/api/projects/{project_id}/review')
+def review_project(project_id: str, review: ReviewRequest):
+    try:
+        return save_review(project_id, review.decision, review.feedback)
+    except KeyError:
+        raise HTTPException(status_code=404, detail='Project not found')
 
 @app.get("/api/presets")
 def get_presets():

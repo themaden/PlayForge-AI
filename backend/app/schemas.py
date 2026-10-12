@@ -2,9 +2,9 @@ from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 
 class GeneratePromptRequest(BaseModel):
-    prompt: str = Field(..., example="Create a 30-second Royal Match puzzle save-the-king playable ad")
+    prompt: str = Field(..., min_length=3, max_length=2000)
     genre: str = Field("Match-3", example="Match-3")
-    duration: int = Field(30, example=30)
+    duration: int = Field(30, ge=5, le=60)
     target_network: str = Field("Meta", example="Meta")
     theme: Optional[str] = Field("Royal Rescue", example="Royal Rescue")
 
@@ -25,16 +25,18 @@ class AssetSpec(BaseModel):
 
 class TestResult(BaseModel):
     is_playable: bool
-    time_to_first_action_sec: float
-    difficulty_score: float
+    validation_method: str = "static_code_checks"
+    checks: Dict[str, bool] = Field(default_factory=dict)
+    time_to_first_action_sec: Optional[float] = None
+    difficulty_score: Optional[float] = None
     engagement_rating: str
-    fps_estimate: int
+    fps_estimate: Optional[int] = None
     recommendations: List[str]
 
 class OptimizationReport(BaseModel):
-    original_hook_delay: float
-    optimized_hook_delay: float
-    ctr_boost_estimate_percent: float
+    original_hook_delay: Optional[float] = None
+    optimized_hook_delay: Optional[float] = None
+    ctr_boost_estimate_percent: Optional[float] = None
     applied_enhancements: List[str]
 
 class PlayableGenerationResponse(BaseModel):
@@ -46,3 +48,5 @@ class PlayableGenerationResponse(BaseModel):
     test_result: TestResult
     optimization_report: OptimizationReport
     export_html: str
+    generation_mode: str = "local_template"
+    generation_duration_ms: float = 0

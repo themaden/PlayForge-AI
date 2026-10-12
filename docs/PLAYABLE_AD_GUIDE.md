@@ -1,8 +1,17 @@
-# Interactive Playable Ad Architecture Guide
+# Playable prototype guide
 
-## Dream Games / Voodoo Playable Ad Benchmarks
+The implemented game is a tap puzzle. Three different tiles trigger a win; timer expiry triggers failure. It does not implement match detection or tile swapping.
 
-1. **Time to First Action (TTFA)**: Must be `< 2.0s`.
-2. **Bundle Size**: Under `3 MB` for Meta, TikTok, and Google App Campaigns.
-3. **MRAID 3.0 Compatibility**: Ad must pause on hide and trigger store URL on click.
-4. **Phaser 3 WebGL Rendering**: 60 FPS minimum with smooth asset scale transitions.
+Export embeds Phaser 3.80.1 and can run offline. The CTA currently displays a demo message. This output has not been certified for any advertising network.
+
+## Review checklist
+
+- Confirm the canvas loads.
+- Verify that repeated taps on one tile do not increase the score.
+- Verify winning after three distinct taps.
+- Verify failure after the timer expires.
+- Read the instructions and CTA on a narrow screen.
+- Request changes with feedback or approve the output.
+- Download and open the HTML offline.
+
+FPS, engagement, CTR uplift and network compliance require separate measurement. No company-specific benchmarks are claimed here.

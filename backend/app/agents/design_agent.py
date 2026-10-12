@@ -23,8 +23,8 @@ class GameDesignAgent:
             cta_text = "REBUILD YOUR KINGDOM!"
             colors = ["#ec4899", "#8b5cf6", "#06b6d4", "#face15"]
         else:
-            mechanic = "Match-3 Rescue"
-            primary_goal = "Match 3 royal gems to break the cage and save the King"
+            mechanic = "Tap Puzzle"
+            primary_goal = "Tap three different gems before the timer ends"
             failure_hook = "Water rises in 10 seconds if match-3 fails!"
             title = "Castle Rescue Puzzle"
             cta_text = "PLAY TO SAVE THE KING!"

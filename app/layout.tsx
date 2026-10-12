@@ -2,8 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'PlayForge AI - AI-Powered Playable Game Ad Generation Platform',
-  description: 'Automated HTML5 Playable Game Ad Generation Platform powered by 5 AI Agents and Phaser 3.80 engine.',
+  title: 'PlayForge Studio',
+  description: 'Local HTML5 tap puzzle prototype with code checks and human review.',
 };
 
 export default function RootLayout({

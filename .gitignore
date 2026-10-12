@@ -1,4 +1,6 @@
 # Node dependencies
+backend/data/
+.venv/
 node_modules/
 .next/
 out/
@@ -18,3 +20,7 @@ __pycache__/
 .idea/
 .DS_Store
 *.log
+
+.test-tmp/
+pytest-cache-files-*/
+.test-tmp*/

@@ -46,6 +46,7 @@ class PlayableScene extends Phaser.Scene {{
         // Subtitle goal
         this.add.text(width/2, 75, "{concept.primary_goal}", {{
             font: '14px Arial',
+            wordWrap: {{ width: 300 }},
             fill: '#facc15'
         }}).setOrigin(0.5);
 
@@ -111,7 +112,9 @@ class PlayableScene extends Phaser.Scene {{
     }}
 
     handleTileClick(tile) {{
-        if (this.gameEnded) return;
+        if (this.gameEnded || tile.consumed) return;
+        tile.consumed = true;
+        tile.disableInteractive();
 
         if (this.hand) {{
             this.hand.destroy();
@@ -158,7 +161,7 @@ class PlayableScene extends Phaser.Scene {{
 
         const bannerText = won ? '🎉 VICTORY! KING SAVED!' : '⚠️ TIME EXPIRED!';
         this.add.text(width/2, height/2 - 50, bannerText, {{
-            font: 'bold 26px Arial',
+            font: 'bold 20px Arial',
             fill: won ? '#4ade80' : '#f87171'
         }}).setOrigin(0.5).setDepth(21);
 
@@ -180,7 +183,7 @@ class PlayableScene extends Phaser.Scene {{
 """
 
     def _generate_pull_pin_code(self, concept: GameConcept) -> str:
-        return f"// Generated Pull-the-Pin Code for {concept.title}"
+        raise NotImplementedError("Pull-the-pin is not implemented. Use the tap puzzle template.")
 
     def _generate_tile_blast_code(self, concept: GameConcept) -> str:
-        return f"// Generated Tile Blast Code for {concept.title}"
+        raise NotImplementedError("Tile blast is not implemented. Use the tap puzzle template.")

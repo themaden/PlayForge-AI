@@ -1,4 +1,5 @@
 from typing import List
+from pathlib import Path
 from backend.app.schemas import GameConcept, AssetSpec
 
 class AdPackagerEngine:
@@ -12,6 +13,7 @@ class AdPackagerEngine:
             for a in assets
         ])
 
+        engine = (Path(__file__).resolve().parents[2] / "vendor" / "phaser.min.js").read_text(encoding="utf-8")
         html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +21,7 @@ class AdPackagerEngine:
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>{concept.title} - Playable Ad</title>
     <!-- Embedded Phaser 3.80 Engine CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.0/dist/phaser.min.js"></script>
+    <script>{engine}</script>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; touch-action: none; }}
         body, html {{ width: 100%; height: 100%; overflow: hidden; background: #0f172a; display: flex; justify-content: center; align-items: center; font-family: sans-serif; }}

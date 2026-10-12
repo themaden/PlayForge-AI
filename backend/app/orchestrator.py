@@ -1,4 +1,5 @@
 import uuid
+import time
 from backend.app.schemas import GeneratePromptRequest, PlayableGenerationResponse
 from backend.app.agents.design_agent import GameDesignAgent
 from backend.app.agents.code_agent import CodeGenerationAgent
@@ -17,6 +18,7 @@ class AgentOrchestrator:
         self.exporter = AdPackagerEngine()
 
     def generate_playable(self, request: GeneratePromptRequest) -> PlayableGenerationResponse:
+        started = time.perf_counter()
         project_id = f"pf_{uuid.uuid4().hex[:8]}"
 
         # Step 1: Game Design Agent
@@ -45,5 +47,6 @@ class AgentOrchestrator:
             assets=assets,
             test_result=test_result,
             optimization_report=optimization_report,
-            export_html=export_html
+            export_html=export_html,
+            generation_duration_ms=round((time.perf_counter() - started) * 1000, 2)
         )

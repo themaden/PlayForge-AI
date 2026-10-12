@@ -1,28 +1,19 @@
-# PlayForge AI - REST API Specifications
+# REST API
 
-The PlayForge AI backend exposes OpenAPI/Swagger compliant endpoints for programmatic playable ad generation.
+The authoritative request and response schemas are available at `/docs` when the backend runs locally.
 
-## Endpoints
+| Endpoint | Purpose |
+| --- | --- |
+| POST /api/generate | Create and persist a local template output; prompt length 3–2000, duration 5–60 seconds |
+| GET /api/projects/{project_id} | Retrieve output and review history; unknown IDs return 404 |
+| POST /api/projects/{project_id}/review | Save approved or changes_requested; changes require nonblank feedback |
+| GET /api/health | Check service availability |
+| GET /api/presets | Legacy template suggestions; pull-the-pin and tile blast are not implemented |
 
-### 1. `POST /api/generate`
-Generates a complete standalone HTML5 playable ad from a prompt.
+Example review body:
 
-**Request Body:**
 ```json
-{
-  "prompt": "Create a 30-second Royal Match style puzzle save-the-king playable ad",
-  "genre": "Match-3",
-  "duration": 30,
-  "target_network": "Meta",
-  "theme": "Royal Rescue"
-}
+{"decision": "changes_requested", "feedback": "Make the instructions clearer"}
 ```
 
-**Response:**
-Returns `PlayableGenerationResponse` containing `project_id`, `game_concept`, `generated_code`, `assets`, `test_result`, `optimization_report`, and `export_html`.
-
-### 2. `GET /api/presets`
-Returns predefined high-converting playable ad prompts and configs.
-
-### 3. `GET /api/health`
-Health check endpoint returning `{"status": "ok"}`.
+`validation_method` is `static_code_checks`. Runtime and ad performance metrics are unmeasured. The local API does not implement authentication or ad-network certification.
